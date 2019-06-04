@@ -1,10 +1,6 @@
 from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required
 
 def index(request):
     """
@@ -30,17 +26,3 @@ def logout(request):
     """
     auth.logout(request)
     return HttpResponseRedirect("/index/")
-
-@login_required
-def project_manage(request):
-    """
-    管理页面，登录成功默认页面
-    """
-    return render(request, "project_manage.html")
-
-@login_required
-def module_manage(request):
-    """
-    管理页面，登录成功默认页面
-    """
-    return render(request, "module_manage.html")

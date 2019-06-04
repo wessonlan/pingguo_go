@@ -51,34 +51,38 @@
           <div class="row placeholders">
           </div>
 
-          <h3 class="sub-header">项目列表</h3>
+          <h3 class="sub-header">项目列表
+          <button type="button" class="btn btn-primary"
+                  style="float: right;"
+                  onclick="location.href='/project/add_project/'">创建</button>
+          </h3>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>项目id</th>
+                  <th>名称</th>
+                  <th>描述</th>
+                  <th>状态</th>
+                  <th>创建时间</th>
                 </tr>
               </thead>
               <tbody>
+                {% for project in projects %}
                 <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
+                  <td>{{ project.id }}</td>
+                  <td>{{ project.name }}</td>
+                  <td>{{ project.describe }}</td>
+                  <td>
+                    {% if project.status == True %}
+                      <span>开启</span>
+                    {% else %}
+                      <span>关闭</span>
+                    {% endif %}
+                  </td>
+                  <td>{{ project.create_time | date:"Y-m-d H:i:s" }}</td>
                 </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-
+                {% endfor %}
               </tbody>
             </table>
           </div>

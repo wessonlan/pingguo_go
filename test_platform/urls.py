@@ -15,15 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-# from personal.views import say_hello
-from personal import views
+from personal.views import login_views
+from personal.views import project_views
+from personal.views import module_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
-    path('index/', views.index),
-    path('logout/', views.logout),
-    path('accounts/login/', views.index),
-    path('project/', views.project_manage),
-    path('module/', views.module_manage),
+    path('', login_views.index),
+    path('index/', login_views.index),
+    path('logout/', login_views.logout),
+    path('accounts/login/', login_views.index),
+    path('project/', project_views.project_manage),
+    path('module/', module_views.module_manage),
+    path('project/add_project/', project_views.add_project),
+
 ]
