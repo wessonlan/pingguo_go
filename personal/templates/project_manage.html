@@ -50,7 +50,8 @@
 
           <div class="row placeholders">
           </div>
-
+        <!--项目列表-->
+        {% if type == "list" %}
           <h3 class="sub-header">项目列表
           <button type="button" class="btn btn-primary"
                   style="float: right;"
@@ -65,6 +66,7 @@
                   <th>描述</th>
                   <th>状态</th>
                   <th>创建时间</th>
+                  <th>操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -81,11 +83,66 @@
                     {% endif %}
                   </td>
                   <td>{{ project.create_time | date:"Y-m-d H:i:s" }}</td>
+                  <td>
+                    <a href="#">
+                      <i class="glyphicon glyphicon-pencil"></i>
+                    </a>
+                    <a href="#">
+                      <i class="glyphicon glyphicon-trash" style="margin-left: 5px;"></i>
+                    </a>
+                  </td>
                 </tr>
                 {% endfor %}
               </tbody>
             </table>
           </div>
+        {% endif %}
+          <!--创建项目-->
+        {% if type == "add" %}
+          <h3 class="sub-header">创建项目</h3>
+            <form class="form-horizontal" method="post" action="/project/add_project/">
+              <div class="control-group">
+                    <!-- Text input-->
+                    <label class="control-label" for="input01">名称</label>
+                    <class="controls">
+                <input type="text" name="name" class="input-xlarge">
+                      <span style="color: red">{{ name_error }}</span>
+                      <p class="help-block">必填项</p>
+                    </div>
+                  </div>
+              <div class="control-group">
+                    <!-- Textarea -->
+                <label class="control-label">描述</label>
+                <div class="controls">
+                  <div class="textarea">
+                    <textarea name="describe" style="width:178px"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                    <label class="control-label">状态</label>
+                <div class="controls" style="height: 40px;">
+                  <!-- Inline Radios -->
+                  <label class="radio inline" style="float: left;padding-left: 30px;">
+                    <input type="radio" value="1" checked="checked" name="status">
+                    开启
+                  </label>
+                  <label class="radio inline" style="float: left;padding-left: 70px;">
+                    <input type="radio" value="0" name="status">
+                    关闭
+                  </label>
+                </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label"></label>
+                  <div class="controls">
+                    <button class="btn btn-success">提交</button>
+                  </div>
+              </div>
+            </form>
+
+        {% endif %}
         </div>
       </div>
     </div>
