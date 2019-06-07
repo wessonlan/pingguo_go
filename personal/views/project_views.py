@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from personal.models.project import Project
-
+from personal.forms import ProjectForm
 @login_required
 def project_manage(request):
     """
@@ -28,3 +28,28 @@ def add_project(request):
                                                           "name_error": "项目名称不能为空"})
         Project.objects.create(name=name, describe=describe, status=status)
         return HttpResponseRedirect("/project/")
+
+@login_required()
+def edit_project(request, project_id):
+    """
+    编辑项目
+    """
+    if request.method == 'GET':
+        if project_id is not None:
+            p = Project.objects.get(id=project_id)
+            form = ProjectForm(instance=p)
+            return render(request, 'project_manage.html', {"type": "edit",
+                                                           "form": form,
+                                                           "id": project_id})
+    elif request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            describe = form.cleaned_data['describe']
+            status = form.cleaned_data['status']
+            p = Project.objects.get(id=project_id)
+            p.name = name
+            p.describe = describe
+            p.status = status
+            p.save()
+            return HttpResponseRedirect("/project/")

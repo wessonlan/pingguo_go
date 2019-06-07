@@ -84,10 +84,10 @@
                   </td>
                   <td>{{ project.create_time | date:"Y-m-d H:i:s" }}</td>
                   <td>
-                    <a href="#">
+                    <a href="/project/edit_project/{{ project.id }}/">
                       <i class="glyphicon glyphicon-pencil"></i>
                     </a>
-                    <a href="#">
+                    <a href="/project/delete_project/{{ project.id }}/">
                       <i class="glyphicon glyphicon-trash" style="margin-left: 5px;"></i>
                     </a>
                   </td>
@@ -102,26 +102,22 @@
           <h3 class="sub-header">创建项目</h3>
             <form class="form-horizontal" method="post" action="/project/add_project/">
               <div class="control-group">
-                    <!-- Text input-->
-                    <label class="control-label" for="input01">名称</label>
+                    <label class="control-label">名称</label>
                     <class="controls">
                 <input type="text" name="name" class="input-xlarge">
                       <span style="color: red">{{ name_error }}</span>
-                      <p class="help-block">必填项</p>
-                    </div>
-                  </div>
+              </div>
               <div class="control-group">
                     <!-- Textarea -->
                 <label class="control-label">描述</label>
                 <div class="controls">
                   <div class="textarea">
-                    <textarea name="describe" style="width:178px"></textarea>
+                    <textarea name="describe" style="width:178px;margin-left: 30px;"></textarea>
                   </div>
                 </div>
               </div>
-
               <div class="control-group">
-                    <label class="control-label">状态</label>
+                <label class="control-label">状态</label>
                 <div class="controls" style="height: 40px;">
                   <!-- Inline Radios -->
                   <label class="radio inline" style="float: left;padding-left: 30px;">
@@ -141,7 +137,31 @@
                   </div>
               </div>
             </form>
-
+        {% endif %}
+          <!--编辑项目-->
+        {% if type == "edit" %}
+          <h3 class="sub-header">编辑项目</h3>
+            <form action="/project/edit_project/{{ id }}/" method="post">
+                  <div class="control-group">
+                    <label class="control-label" for="input01">名称</label>
+                    <class="controls">
+                     {{ form.name }}
+                        <span style="color: red">{{ name_error }}</span>
+                  </div>
+                  <div class="control-group">
+                    <!-- Textarea -->
+                   <label class="control-label">描述</label>
+                   <div class="controls">
+                    {{ form.describe }}
+                   </div>
+                  <div class="control-group">
+                   <label class="control-label">状态</label>
+                   {{ form.status }}
+                 </div>
+              </div>
+<!--                {{ form.as_p }}-->
+                <input type="submit" value="提交"></input>
+            </form>
         {% endif %}
         </div>
       </div>
